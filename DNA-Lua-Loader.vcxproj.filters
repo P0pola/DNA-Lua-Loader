@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="framework\dllmain.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\ue-init.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\pch-ue.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\detours\detours.cpp">
+      <Filter>libraries\detours</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\detours\disasm.cpp">
+      <Filter>libraries\detours</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\detours\modules.cpp">
+      <Filter>libraries\detours</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\pipeline\HookManager.cpp" />
+    <ClCompile Include="libraries\Logger\logger.cpp" />
+    <ClCompile Include="appdata\Earlyhook.cpp" />
+    <ClCompile Include="appdata\Memory.cpp" />
+    <ClCompile Include="framework\helpers.cpp" />
+    <ClCompile Include="user\main.cpp">
+      <Filter>user</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="user\main.h">
+      <Filter>user</Filter>
+    </ClInclude>
+    <ClInclude Include="appdata\ue-functions.h">
+      <Filter>appdata</Filter>
+    </ClInclude>
+    <ClInclude Include="appdata\ue-types.h">
+      <Filter>appdata</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\helpers.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\ue-appdata.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\ue-init.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\pch-ue.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\detours\detours.h">
+      <Filter>libraries\detours</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\pipeline\HookManager.h" />
+    <ClInclude Include="libraries\Logger\logger.h" />
+    <ClInclude Include="appdata\Earlyhook.h" />
+    <ClInclude Include="appdata\driver.h" />
+    <ClInclude Include="appdata\Memory.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="appdata">
+      <UniqueIdentifier>{39504b86-1bd8-4adc-8336-a5ceff0b9886}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework">
+      <UniqueIdentifier>{9b2bf512-ef9e-417b-82b5-77183e4004a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="user">
+      <UniqueIdentifier>{5e486c11-79a3-4e6d-a162-6a1ece7702ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries">
+      <UniqueIdentifier>{104ecab9-867b-4aff-bd68-da00265894ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries\detours">
+      <UniqueIdentifier>{3f1814ec-f857-47f7-b184-898cf0caf6cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries\pipeline">
+      <UniqueIdentifier>{00000000-0000-0000-0000-000000000001}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries\pipeline">
+      <UniqueIdentifier>{e7678f60-1843-41c1-b40a-0d5450647fbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries\pipeline\gui">
+      <UniqueIdentifier>{34d3cd72-e879-4772-9844-dc46fcc5b508}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries\pipeline\gui\tabs">
+      <UniqueIdentifier>{4201729e-58ed-43cf-9071-64fdb4a1b68e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries\pipeline\hooks">
+      <UniqueIdentifier>{34dd220e-6f18-4004-8b21-96e11a43cb65}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

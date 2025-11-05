@@ -1,0 +1,19 @@
+#ifndef PCH_UE_H
+#define PCH_UE_H
+#include <Windows.h>
+#include <iostream>
+#include <algorithm>
+#include <utility>
+#include <memory>
+#include "ue-appdata.h"
+#include <string>
+#include <filesystem>
+#include <vector>
+#include <unordered_map>
+#include <mutex>
+#include <fstream>
+#include "../framework/helpers.h"
+#include "../libraries/pipeline/HookManager.h"
+#include "../libraries/Logger/logger.h"
+#include "../appdata/Memory.h"
+#endif // PCH_UE_H
