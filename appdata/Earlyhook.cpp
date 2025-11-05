@@ -46,7 +46,7 @@ std::wstring GetDllDir() {
 
 std::string NormalizeKey(const std::wstring& w) {
     std::string s = ConvertWCharToNarrow(w.c_str());
-    for (auto& c : s) c = (char)tolower((unsigned char)c);
+    // for (auto& c : s) c = (char)tolower((unsigned char)c);
     for (auto& c : s) if (c == '\\') c = '/';
     return s;
 }
