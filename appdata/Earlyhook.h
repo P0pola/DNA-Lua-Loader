@@ -11,4 +11,9 @@ std::string ConvertWCharToNarrow(const wchar_t* wstr);
 void enabled_hook_early();
 void init_external_script_map();
 void* luaL_dostring_hook (void* a1, const char* a2);
+std::wstring GetDllDir();
+std::string NormalizeKey(const std::wstring& w);
+void ScanScriptFolder();
+std::string ExtractKeyFromInName(const char* InName);
+bool TryLoadExternal(const std::string& key, std::vector<char>& out);
 

@@ -30,11 +30,11 @@ std::string ConvertWCharToNarrow(const wchar_t* wstr) {
 	return str;
 }
 
-static std::wstring g_dll_dir;
-static std::unordered_map<std::string, std::wstring> g_script_map;
-static std::once_flag g_scan_once;
+std::wstring g_dll_dir;
+std::unordered_map<std::string, std::wstring> g_script_map;
+std::once_flag g_scan_once;
 
-static std::wstring GetDllDir() {
+std::wstring GetDllDir() {
     HMODULE hModule = nullptr;
     GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, reinterpret_cast<LPCWSTR>(&enabled_hook_early), &hModule);
     wchar_t pathBuf[MAX_PATH];
@@ -44,14 +44,14 @@ static std::wstring GetDllDir() {
     return p.parent_path().wstring();
 }
 
-static std::string NormalizeKey(const std::wstring& w) {
+std::string NormalizeKey(const std::wstring& w) {
     std::string s = ConvertWCharToNarrow(w.c_str());
     for (auto& c : s) c = (char)tolower((unsigned char)c);
     for (auto& c : s) if (c == '\\') c = '/';
     return s;
 }
 
-static void ScanScriptFolder() {
+void ScanScriptFolder() {
     g_dll_dir = GetDllDir();
     if (g_dll_dir.empty()) {
         LOG_WARNING("DLL directory not found");
@@ -75,30 +75,65 @@ static void ScanScriptFolder() {
 
 void init_external_script_map() {
   ScanScriptFolder(); 
+  LOG_INFO("g_script_map content after scan:"); // Add this line
+  for (const auto& pair : g_script_map) { // Add this loop
+      LOG_INFO("  Key: {}, Path: {}", pair.first.c_str(), ConvertWCharToNarrow(pair.second.c_str())); // Add this line
+  }
+  //auto key = ExtractKeyFromInName("game/test/Script/test.lua");
+  //LOG_INFO("Test key extracted: {}", key.c_str()); // Add this line
+  //if (!key.empty()) {
+  //    std::vector<char> extBuf;
+  //    if (TryLoadExternal(key, extBuf)) {
+  //        LOG_INFO("Lua overridden: {}", key.c_str());
+  //        /*return CALL_ORIGIN(FLuaEnv_LoadBuffer_hook, a1, InL, static_cast<const char*>(extBuf.data()), static_cast<size_t>(extBuf.size()), InName);*/
+  //    } else {
+  //        LOG_INFO("TryLoadExternal failed for test key: {}", key.c_str()); // Add this line
+  //    }
+  //} else {
+  //    LOG_INFO("Test key is empty."); // Add this line
+  //}
+
 }
 
-static std::string ExtractKeyFromInName(const char* InName) {
+std::string ExtractKeyFromInName(const char* InName) {
     if (!InName) return "";
     std::string s(InName);
-    for (auto& c : s) c = (char)tolower((unsigned char)c);
+
     for (auto& c : s) if (c == '\\') c = '/';
-    size_t pos = s.find("/script/");
+
+
+    size_t pos = s.find("/Script/");
+
     if (pos == std::string::npos) return "";
     std::string key = s.substr(pos + 8);
+
     return key;
 }
 
-static bool TryLoadExternal(const std::string& key, std::vector<char>& out) {
+bool TryLoadExternal(const std::string& key, std::vector<char>& out) {
     auto it = g_script_map.find(key);
-    if (it == g_script_map.end()) return false;
+    if (it == g_script_map.end()) {
+        LOG_INFO("Key not found in g_script_map: {}", key.c_str());
+        return false;
+    }
+    LOG_INFO("Attempting to open file: {}", ConvertWCharToNarrow(it->second.c_str()));
     std::ifstream f(it->second, std::ios::binary);
-    if (!f) return false;
+    if (!f) {
+        LOG_INFO("Failed to open file: {}", ConvertWCharToNarrow(it->second.c_str()));
+        return false;
+    }
     f.seekg(0, std::ios::end);
     std::streamsize size = f.tellg();
-    if (size <= 0) return false;
+    if (size <= 0) {
+        LOG_INFO("File is empty or seek failed for: {}", ConvertWCharToNarrow(it->second.c_str()));
+        return false;
+    }
     f.seekg(0, std::ios::beg);
     out.resize((size_t)size);
-    if (!f.read(out.data(), size)) return false;
+    if (!f.read(out.data(), size)) {
+        LOG_INFO("Failed to read file: {}", ConvertWCharToNarrow(it->second.c_str()));
+        return false;
+    }
     return true;
 }
 

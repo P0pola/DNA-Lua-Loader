@@ -15,7 +15,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
   Logger_::attach().showFileName().showLineNumber().consoleOnly().enableColors();
   SetConsoleTitleA("UnrealEngine Game Console");
   init_external_script_map();
- CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Run, hModule, NULL, NULL);
+  CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Run, hModule, NULL, NULL);
   break;
  case DLL_PROCESS_DETACH:
   //FreeLibrary(version_dll);
